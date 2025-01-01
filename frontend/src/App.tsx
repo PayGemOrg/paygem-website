@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Navbar } from "./components/NavBar";
 import { Landing } from "./pages/Landing";
+import { Dashboard } from "./pages/Dashboard";
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
             <Navbar />
             <Routes>
                 <Route path="/" element={<Landing />} />
+                <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
         </div>
     );
