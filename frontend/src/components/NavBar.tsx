@@ -123,10 +123,13 @@ export const Navbar: React.FC = () => {
                             <GrHomeRounded className="text-sm" />
                             <span>Dashboard</span>
                         </Link>
-                        <li className="flex items-center space-x-2 justify-start rounded-md py-1 px-[0.35rem] cursor-pointer transition-all duration-300 hover:bg-primaryLight dark:hover:text-black">
+                        <Link
+                            to={"/subscriptions"}
+                            className="flex items-center space-x-2 justify-start rounded-md py-1 px-[0.35rem] cursor-pointer transition-all duration-300 hover:bg-primaryLight dark:hover:text-black"
+                        >
                             <FaRegStar />
                             <span>Subscriptions</span>
-                        </li>
+                        </Link>
                         <li className="flex items-center space-x-2 justify-start rounded-md py-1 px-[0.35rem] cursor-pointer transition-all duration-300 hover:bg-primaryLight dark:hover:text-black">
                             <CgNotes />
                             <span>Payment History</span>
