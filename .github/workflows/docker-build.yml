@@ -25,3 +25,6 @@ jobs:
 
             - name: Wait For 20s
               run: sleep 20
+
+            - name: Trigger Deployment Webhook
+              run: curl "${{ secrets.DEPLOYMENT_WEBHOOK }}"
