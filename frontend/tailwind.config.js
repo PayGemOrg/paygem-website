@@ -39,9 +39,9 @@ module.exports = {
                     paddingBottom: "0.5rem",
                     fontWeight: "500", // font-medium
                     transition: "all 300ms ease-in-out",
+                    border: "2px white solid",
 
-                    // Light mode styles
-                    backgroundColor: "#2c7a7b", // primaryBold
+                    backgroundColor: "#2c7a7b",
                     color: "white",
                     "&:hover": {
                         opacity: "0.9",
@@ -54,6 +54,8 @@ module.exports = {
                         outline: "none",
                         boxShadow: "0 0 0 2px rgba(44, 122, 123, 0.5)",
                     },
+
+                    "@apply bg-primaryBold text-white px-5 py-2 rounded-md hover:bg-primaryMedium transition-all": {},
 
                     // Dark mode styles
                     "@apply dark:bg-primaryMedium dark:text-black dark:hover:bg-opacity-80 dark:hover:shadow-lg":

@@ -14,25 +14,16 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { BiSupport } from "react-icons/bi";
 import { SlBriefcase } from "react-icons/sl";
 import { Link } from "react-router-dom";
+import { useWallet } from "../providers/WalletProvider";
 
 export const Navbar: React.FC = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const { walletAddress, connectWallet, disconnectWallet } = useWallet();
 
+    // Sidebar animation variants
     const sidebarVariants = {
-        closed: {
-            x: "-100%",
-            transition: {
-                type: "tween",
-                duration: 0.3,
-            },
-        },
-        open: {
-            x: 0,
-            transition: {
-                type: "tween",
-                duration: 0.3,
-            },
-        },
+        closed: { x: "-100%", transition: { type: "tween", duration: 0.3 } },
+        open: { x: 0, transition: { type: "tween", duration: 0.3 } },
     };
 
     const overlayVariants = {
@@ -64,11 +55,13 @@ export const Navbar: React.FC = () => {
                 animate={{ opacity: 1 }}
                 className="flex w-full justify-between items-center py-4 px-4"
             >
-                {/* Menu Toggle */}
+                {/* Sidebar Toggle (conditionally rendered) */}
                 <section className="flex items-center space-x-4">
-                    <button onClick={toggleSidebar}>
-                        <FaBars size={24} />
-                    </button>
+                    {walletAddress && (
+                        <button onClick={toggleSidebar}>
+                            <FaBars size={24} />
+                        </button>
+                    )}
                     <p className="text-xl font-extrabold">PayGem</p>
                 </section>
 
@@ -80,11 +73,29 @@ export const Navbar: React.FC = () => {
                     <li>Resources</li>
                 </ul>
 
+                {/* Wallet Connect Button */}
                 <section className="flex space-x-2">
                     <ThemeToggle />
-                    <button className="rounded-md font-medium py-[0.3rem] px-4 text-white bg-primaryBold dark:bg-primaryMedium dark:text-black">
-                        Connect Wallet
-                    </button>
+                    {!walletAddress ? (
+                        <button
+                            onClick={connectWallet}
+                            className="bg-primaryBold text-white px-5 py-2 rounded-md hover:bg-primaryMedium transition-all"
+                        >
+                            Connect Wallet
+                        </button>
+                    ) : (
+                        <div className="flex items-center space-x-4">
+                            <p className="text-sm text-light-text">
+                                {walletAddress.slice(0, 6)}...{walletAddress.slice(-4)}
+                            </p>
+                            <button
+                                onClick={disconnectWallet}
+                                className="bg-primaryBold text-white px-5 py-2 rounded-md hover:bg-primaryMedium transition-all"
+                            >
+                                Disconnect
+                            </button>
+                        </div>
+                    )}
                 </section>
             </motion.section>
 

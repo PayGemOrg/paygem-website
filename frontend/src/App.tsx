@@ -7,8 +7,8 @@ import { Subscriptions } from "./pages/Subscriptions";
 function App() {
     return (
         <div
-            className="flex flex-col px-8 min-h-screen bg-light-primary dark:bg-dark-primary
-                      text-light-text dark:text-dark-text"
+            className="flex flex-col min-h-screen bg-light-primary dark:bg-dark-primary
+                      text-light-text dark:text-dark-text max-w-[1540px] mx-auto"
         >
             <Navbar />
             <Routes>

@@ -4,13 +4,16 @@ import "./index.css";
 import App from "./App.tsx";
 import { ThemeProvider } from "./providers/ThemeProvider.tsx";
 import { BrowserRouter as Router } from "react-router-dom";
+import { WalletProvider } from "./providers/WalletProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
     <Router>
         <StrictMode>
-            <ThemeProvider>
-                <App />
-            </ThemeProvider>
+            <WalletProvider>
+                <ThemeProvider>
+                    <App />
+                </ThemeProvider>
+            </WalletProvider>
         </StrictMode>
     </Router>
 );
