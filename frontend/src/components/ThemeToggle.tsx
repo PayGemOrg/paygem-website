@@ -1,4 +1,3 @@
-// src/components/ThemeToggle.tsx
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaMoon, FaSun } from "react-icons/fa";
