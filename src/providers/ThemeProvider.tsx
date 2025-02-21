@@ -7,7 +7,7 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-    const [darkMode, setDarkMode] = React.useState(false);
+    // const [darkMode, setDarkMode] = React.useState(false);
 
     // React.useEffect(() => {
     //     // Initial theme detection
@@ -24,7 +24,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
     return (
         <AnimatePresence mode="wait">
             <motion.div
-                key={darkMode ? "dark" : "light"}
+                // key={darkMode ? "dark" : "light"}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.05 }}
