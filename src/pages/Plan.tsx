@@ -3,10 +3,29 @@ import { FaPlusCircle } from "react-icons/fa";
 import { useState } from "react";
 import { NewPlanModal } from "./_components/NewPlan";
 import { PlanCard } from "../components/UI/PlanCard";
-import { plans } from "../data/plans";
+import { plans as mockPlans } from "../data/plans";
 
-export const Plan: React.FC = () => {
+export const Plans: React.FC = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [plans, setPlans] = useState(mockPlans);
+    const [editingPlan, setEditingPlan] = useState<string | null>(null);
+
+    // Handle editing a plan
+    const handleEdit = (id: string) => {
+        if (editingPlan) {
+            console.log("Editing plan:", id);
+        }
+        setEditingPlan(id);
+        setIsModalOpen(true);
+    };
+
+    // Handle deleting a plan
+    const handleDelete = (id: string) => {
+        if (window.confirm("Are you sure you want to delete this plan?")) {
+            setPlans(plans.filter((plan) => plan.id !== id));
+            console.log("Deleted plan:", id);
+        }
+    };
 
     return (
         <>
@@ -28,9 +47,10 @@ export const Plan: React.FC = () => {
                         </button>
                     </p>
                 </section>
+
                 <div className="grid grid-cols-3 gap-4">
                     {plans.map((plan) => (
-                        <PlanCard key={plan.id} plan={plan} />
+                        <PlanCard key={plan.id} plan={plan} onEdit={handleEdit} onDelete={handleDelete} />
                     ))}
                 </div>
             </motion.div>

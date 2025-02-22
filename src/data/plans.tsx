@@ -9,7 +9,7 @@ export const plans = [
         billingCycle: "Monthly",
         is_active: true,
         subscribersLimit: "100",
-        subscriberCount: "50",
+        subscriberCount: 50,
     },
     {
         id: "2",
@@ -21,7 +21,7 @@ export const plans = [
         billingCycle: "Monthly",
         is_active: true,
         subscribersLimit: "Unlimited",
-        subscriberCount: "200",
+        subscriberCount: 200,
     },
     {
         id: "3",
@@ -33,7 +33,7 @@ export const plans = [
         billingCycle: "Monthly",
         is_active: true,
         subscribersLimit: "Unlimited",
-        subscriberCount: "500",
+        subscriberCount: 500,
     },
     {
         id: "4",
@@ -45,7 +45,7 @@ export const plans = [
         billingCycle: "Quarterly",
         is_active: true,
         subscribersLimit: "300",
-        subscriberCount: "150",
+        subscriberCount: 150,
     },
     {
         id: "5",
@@ -57,6 +57,6 @@ export const plans = [
         billingCycle: "Yearly",
         is_active: true,
         subscribersLimit: "50",
-        subscriberCount: "10",
+        subscriberCount: 10,
     },
 ];
