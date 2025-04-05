@@ -4,7 +4,7 @@ import { Landing } from "./pages/Landing";
 import { Dashboard } from "./pages/Dashboard";
 import { Subscriptions } from "./pages/Subscriptions";
 import {Services} from "./pages/Services";
-import { Plan } from "./pages/Plan";
+import { Plans } from "./pages/Plan";
 import { ViewService } from "./pages/ViewService";
 import { ViewPlan } from "./pages/ViewPlan";
 
@@ -21,7 +21,7 @@ function App() {
                 <Route path="/subscriptions" element={<Subscriptions />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/viewservice" element={<ViewService />} />
-                <Route path="/plans" element={<Plan />} />
+                <Route path="/plans" element={<Plans />} />
                 <Route path="/viewplans" element={<ViewPlan />} />
             </Routes>
         </div>

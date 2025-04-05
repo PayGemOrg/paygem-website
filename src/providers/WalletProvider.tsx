@@ -2,12 +2,17 @@ import React, { createContext, useState, useContext, useEffect, ReactNode } from
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import { useCookies } from "react-cookie";
+import { usersAPI } from "../components/api/users";
+import { isEmpty } from "../components/lib/generalUtils";
 
 interface WalletContextType {
     walletAddress: string | null;
     connectWallet: () => Promise<void>;
     disconnectWallet: () => void;
     walletConnected: boolean;
+    userMetrics: any;
+    userMetricsLoading: boolean;
+    nextRenewals: any[];
 }
 
 const WalletContext = createContext<WalletContextType | undefined>(undefined);
@@ -19,14 +24,66 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
     const [walletAddress, setWalletAddress] = useState<string | null>(null);
     const [cookies, setCookie, removeCookie] = useCookies(["walletAddress"]);
     const [walletConnected, setWalletConnected] = useState(false);
-
+    const [userMetrics, setUserMetrics] = useState({});
+    const [userMetricsLoading, setUserMetricsLoading] = useState(false);
+    const [nextRenewals, setNextRenewals] = useState([]);
     // Load wallet address from cookies on mount
     useEffect(() => {
         if (cookies.walletAddress) {
             setWalletAddress(cookies.walletAddress);
             setWalletConnected(true);
         }
+        else {
+            window.location.href = "/";
+        }
     }, [cookies.walletAddress]);
+
+    useEffect(() => {
+        const fetchUserMetrics = async () => {
+            if (walletAddress && isEmpty(userMetrics)) {
+                setUserMetricsLoading(true);
+                try {
+                    await usersAPI.getUserMetrics({
+                        address: walletAddress,
+                        callback: (data) => {
+                            setUserMetrics(data.data);
+                            setUserMetricsLoading(false);
+                        },
+                        handleError: (error) => {
+                            console.error("Error fetching user metrics:", error);
+                            setUserMetricsLoading(false);
+                        },
+                    });
+                } catch (error) {
+                    console.error("Error fetching user metrics:", error);
+                    setUserMetricsLoading(false);
+                }
+            }
+        };
+
+        const fetchNextRenewals = async () => {
+            if (walletAddress  && isEmpty(userMetrics)) {
+                try {
+                    await usersAPI.getNextRenewals({
+                        address: walletAddress,
+                        callback: (data) => {
+                            setNextRenewals(data.data);
+                        },
+                        handleError: (error) => {
+                            console.error("Error fetching next renewals:", error);
+                        },
+                    });
+                } catch (error) {
+                    console.error("Error fetching next renewals:", error);
+                }
+            }
+        }
+
+        fetchUserMetrics();
+        fetchNextRenewals();
+    }
+    , [walletAddress]);
+
 
     // Connect to wallet
     const connectWallet = async () => {
@@ -57,7 +114,7 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
 
     return (
         <WalletContext.Provider
-            value={{ walletAddress, connectWallet, disconnectWallet, walletConnected }}
+            value={{ walletAddress, connectWallet, disconnectWallet, walletConnected, userMetrics, userMetricsLoading, nextRenewals }}
         >
             {children}
         </WalletContext.Provider>
