@@ -33,9 +33,6 @@ export const WalletProvider: React.FC<WalletProviderProps> = ({ children }) => {
             setWalletAddress(cookies.walletAddress);
             setWalletConnected(true);
         }
-        else {
-            window.location.href = "/";
-        }
     }, [cookies.walletAddress]);
 
     useEffect(() => {
